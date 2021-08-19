@@ -23,7 +23,6 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-//#include <direct.h>
 #define JJZERO          101
 #define JJINF           102
 #define JJMINVIOLA      103

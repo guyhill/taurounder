@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW-Windows
+CND_PLATFORM=MinGW_64bit-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -43,8 +43,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-m32 -ggdb
+CXXFLAGS=-m32 -ggdb
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -67,17 +67,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/TauRounder.${CND_DLIB_EXT}: ${OBJECTF
 ./src/RounderCtrl_wrap.cpp ./src/RounderCtrl_wrap.h: RounderCtrl.swg
 	${MKDIR} -p ./src ./src
 	@echo Performing Custom Build Step
-	E:/W7/Users/Peter-Paul/MyDocuments/Thuiswerk/Programmatuur/swigwin-3.0.2/swig.exe -c++ -I./src -java -package tauargus.extern.taurounder -outdir ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM} -o ./src/RounderCtrl_wrap.cpp RounderCtrl.swg
+	D:/Peter-Paul/Documents/Thuiswerk/Programmatuur/swigwin-4.0.1/swig.exe -c++ -I./src -java -package tauargus.extern.taurounder -outdir ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM} -o ./src/RounderCtrl_wrap.cpp RounderCtrl.swg
 
 ${OBJECTDIR}/src/RounderCtrl.o: src/RounderCtrl.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -DCPLEXV -DDYNAMIC -DSCIPV -DXPRESSV -I/C/Program\ Files\ \(x86\)/Java/jdk1.7.0_17/include -I/C/Program\ Files\ \(x86\)/Java/jdk1.7.0_17/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/RounderCtrl.o src/RounderCtrl.cpp
+	$(COMPILE.cc) -g -DCPLEXV -DDYNAMIC -DSCIPV -DXPRESSV -I../../../Java/zulu8.44.0.13-ca-fx-jdk8.0.242-win_i686/include -I../../../Java/zulu8.44.0.13-ca-fx-jdk8.0.242-win_i686/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/RounderCtrl.o src/RounderCtrl.cpp
 
 ${OBJECTDIR}/src/RounderCtrl_wrap.o: src/RounderCtrl_wrap.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -DCPLEXV -DDYNAMIC -DSCIPV -DXPRESSV -I/C/Program\ Files\ \(x86\)/Java/jdk1.7.0_17/include -I/C/Program\ Files\ \(x86\)/Java/jdk1.7.0_17/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/RounderCtrl_wrap.o src/RounderCtrl_wrap.cpp
+	$(COMPILE.cc) -g -DCPLEXV -DDYNAMIC -DSCIPV -DXPRESSV -I../../../Java/zulu8.44.0.13-ca-fx-jdk8.0.242-win_i686/include -I../../../Java/zulu8.44.0.13-ca-fx-jdk8.0.242-win_i686/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/RounderCtrl_wrap.o src/RounderCtrl_wrap.cpp
 
 # Subprojects
 .build-subprojects:
