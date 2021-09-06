@@ -22,9 +22,7 @@
 %apply char **STRING_OUT { char ** };
 
 // Instead of the default, treat these method parameters as array variables in Java...
-%apply long[] {long *ErrorCode, long *NumberJump}
 %apply char **STRING_ARRAY { char* [] }
-%apply double[] {double *MaxJump, double *UsedTime, double *UpperBound, double *LowerBound, double* MaxTime}
 
 // Include this block in the generated C++ wrapper code (rounderctrl_wrap.cpp)
 %{

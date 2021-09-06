@@ -54,7 +54,7 @@ OBJECTFILES = \
     $(OBJECTDIR)/src/Versioninfo.o
 
 # Compiler flags
-CXXFLAGS         = -ggdb -g -Og -Wall $(DEFINES) $(BITS)
+CXXFLAGS         = -g -O2 -Wall $(DEFINES) $(BITS) -fPIC -fno-strict-aliasing
 SFLAGS           = -c++ -I./src -java -package $(JAVAPACKAGE) -outdir $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)
 
 all:

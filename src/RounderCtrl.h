@@ -25,18 +25,19 @@
 
 //#include "WrapCRP.h"
 
-class RounderCtrl
+class __declspec(dllexport) RounderCtrl
+//class RounderCtrl
 {
 private:
 
 public:
-    RounderCtrl()
+    /*RounderCtrl()
     {
     }
     
     ~RounderCtrl()
     {
-    }
+    }*/
     
     void SetProgressListener(RProgressListener *jProgressListener);
     void SetCallback(RCallback *jCallback);
