@@ -1,11 +1,12 @@
 # Makefile for TauRounder
+
 ####### Compiler, tools and options
 # Environment
 
 MKDIR            = mkdir
 RM               = rm -f
 CP               = cp -p
-DEFINES          = -DCPLEXV -DSCIPV -DXPRESSV -DDYNAMIC
+#DEFINES          = -DCPLEXV -DSCIPV -DXPRESSV -DDYNAMIC
 
 32BIT            = true
 #32BIT            = false
@@ -54,7 +55,8 @@ OBJECTFILES = \
     $(OBJECTDIR)/src/Versioninfo.o
 
 # Compiler flags
-CXXFLAGS         = -g -O2 -Wall $(DEFINES) $(BITS) -fPIC -fno-strict-aliasing
+#CXXFLAGS         = -g -O2 -Wall $(DEFINES) $(BITS) -fPIC -fno-strict-aliasing
+CXXFLAGS         = -g -O2 -Wall $(BITS) -fPIC -fno-strict-aliasing
 SFLAGS           = -c++ -I./src -java -package $(JAVAPACKAGE) -outdir $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)
 
 all:
