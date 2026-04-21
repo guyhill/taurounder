@@ -3,35 +3,22 @@
 ####### Compiler, tools and options
 # Environment
 
-MKDIR            = mkdir
+MKDIR            = mkdir -p
 RM               = rm -f
 CP               = cp -p
-#DEFINES          = -DCPLEXV -DSCIPV -DXPRESSV -DDYNAMIC
 
-32BIT            = true
-#32BIT            = false
+32BIT            = false
 
-SWIGDIR          = D:/Peter-Paul/Documents/Thuiswerk/Programmatuur/swigwin-4.0.1
+BITS         = -m64 -D_LP64
+ARCH         = x86_64
+CND_PLATFORM = gcc
+JAVADIR      = /usr/lib/jvm/java-17-openjdk-amd64
 
-ifeq ($(32BIT), false) # 64 bit assumed
-    BITS         = -m64 -D_LP64
-    ARCH         = x86_64
-    CND_PLATFORM = MinGW-Windows64
-    JAVADIR      = ../../../Java/zulu8.52.0.23-ca-jdk8.0.282-win_x64
-    GNUDIR       = C:/Progra~1/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin
-else                   # 32 bit assumed
-    BITS         = -m32
-    ARCH         = x86
-    CND_PLATFORM = MinGW-Windows
-    JAVADIR      = ../../../Java/zulu8.52.0.23-ca-jdk8.0.282-win_i686
-    GNUDIR       = C:/Progra~2/mingw-w64/i686-8.1.0-win32-sjlj-rt_v6-rev0/mingw32/bin
-endif
-
-JAVAINC          = -I$(JAVADIR)/include -I$(JAVADIR)/include/win32
-CC               = $(GNUDIR)/g++
-CXX              = $(GNUDIR)/g++
+JAVAINC          = -I$(JAVADIR)/include -I$(JAVADIR)/include/linux
+CC	             = g++
+CXX              = g++
 WINDRES          = $(GNUDIR)/windres
-SWIG             = $(SWIGDIR)/swig.exe
+SWIG             = swig
 
 LIBNAME          = TauRounder
 JAVAPACKAGE      = tauargus.extern.taurounder
@@ -54,10 +41,23 @@ OBJECTFILES = \
     $(OBJECTDIR)/src/RounderCtrl_wrap.o \
     $(OBJECTDIR)/src/Versioninfo.o
 
+BUILD = build
+BUILDSRC = $(BUILD)/src
+BUILDOBJ = $(BUILD)/obj
+
 # Compiler flags
 #CXXFLAGS         = -g -O2 -Wall $(DEFINES) $(BITS) -fPIC -fno-strict-aliasing
 CXXFLAGS         = -g -O2 -Wall $(BITS) -fPIC -fno-strict-aliasing
-SFLAGS           = -c++ -I./src -java -package $(JAVAPACKAGE) -outdir $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)
+SFLAGS           = -c++ -I./src -I/home/ehvl@cbsp.nl/install/local/share/swig/4.4.1 -I/home/ehvl@cbsp.nl/install/local/share/swig/4.4.1/java -java -package $(JAVAPACKAGE) -outdir $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)
+
+$(BUILDSRC)/RounderCtrl_wrap.cpp: RounderCtrl.swg
+	$(MKDIR) $(BUILDSRC)
+	$(SWIG) $(SFLAGS) -o $(BUILDSRC)/RounderCtrl_wrap.cpp RounderCtrl.swg
+
+$(BUILDOBJ)/RounderCtrl_wrap.o: $(BUILDSRC)/RounderCtrl_wrap.cpp
+	$(MKDIR) $(BUILDOBJ)
+	$(CXX) -c $(CXXFLAGS) -Wno-unused-function $(JAVAINC) -o $(BUILDOBJ)/RounderCtrl.o $(BUILDSRC)/RounderCtrl_wrap.cpp
+	
 
 all:
 	$(MKDIR) -p $(OBJECTDIR)/src
