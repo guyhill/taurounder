@@ -12,12 +12,12 @@ CP               = cp -p
 BITS         = -m64 -D_LP64
 ARCH         = x86_64
 CND_PLATFORM = gcc
-JAVADIR      = /usr/lib/jvm/java-17-openjdk-amd64
+JAVADIR      = /usr/lib/jvm/java-21-openjdk-amd64
 
 JAVAINC          = -I$(JAVADIR)/include -I$(JAVADIR)/include/linux
 CC	             = g++
 CXX              = g++
-WINDRES          = $(GNUDIR)/windres
+WINDRES          = x86_64-w64-mingw32-windres
 SWIG             = swig
 
 LIBNAME          = TauRounder
@@ -48,7 +48,9 @@ BUILDOBJ = $(BUILD)/obj
 # Compiler flags
 #CXXFLAGS         = -g -O2 -Wall $(DEFINES) $(BITS) -fPIC -fno-strict-aliasing
 CXXFLAGS         = -g -O2 -Wall $(BITS) -fPIC -fno-strict-aliasing
-SFLAGS           = -c++ -I./src -I/home/ehvl@cbsp.nl/install/local/share/swig/4.4.1 -I/home/ehvl@cbsp.nl/install/local/share/swig/4.4.1/java -java -package $(JAVAPACKAGE) -outdir $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)
+SFLAGS           = -c++ -I./src -I/usr/local/share/swig/4.4.1 -I/usr/local/share/swig/4.4.1/java -java -package $(JAVAPACKAGE) -outdir $(BUILDSRC)
+
+INCLUDE = -I./src
 
 $(BUILDSRC)/RounderCtrl_wrap.cpp: RounderCtrl.swg
 	$(MKDIR) $(BUILDSRC)
@@ -56,8 +58,17 @@ $(BUILDSRC)/RounderCtrl_wrap.cpp: RounderCtrl.swg
 
 $(BUILDOBJ)/RounderCtrl_wrap.o: $(BUILDSRC)/RounderCtrl_wrap.cpp
 	$(MKDIR) $(BUILDOBJ)
-	$(CXX) -c $(CXXFLAGS) -Wno-unused-function $(JAVAINC) -o $(BUILDOBJ)/RounderCtrl.o $(BUILDSRC)/RounderCtrl_wrap.cpp
-	
+	$(CXX) -c $(CXXFLAGS) -Wno-unused-function $(JAVAINC) $(INCLUDE) -o $(BUILDOBJ)/RounderCtrl_wrap.o $(BUILDSRC)/RounderCtrl_wrap.cpp
+
+$(BUILDOBJ)/RounderCtrl.o: src/RounderCtrl.cpp
+	$(MKDIR) $(BUILDOBJ)
+	$(CXX) -c $(CXXFLAGS) $(JAVAINC) $(INCLUDE) -o $(BUILDOBJ)/RounderCtrl.o src/RounderCtrl.cpp
+
+$(BUILDOBJ)/Versioninfo.o: src/Versioninfo.rc
+	$(WINDRES) ./src/Versioninfo.rc $(BUILDOBJ)/Versioninfo.o
+
+$(BUILDLIB)/libtaurounder.$(CND_DLIB_EXT): $(BUILDOBJ)/*.o
+	$(CXX) -o $(BUILDLIB)/libtaurounder.$(CND_DLIB_EXT) $(BUILDOBJ)/*.o $(CRPLIBS) -Wl,--kill-at -shared
 
 all:
 	$(MKDIR) -p $(OBJECTDIR)/src
@@ -73,5 +84,5 @@ all:
 	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/*.java ../tauargus/src/tauargus/extern/taurounder
 
 clean:
-	$(RM) -r $(CND_BUILDDIR)/$(CND_CONF)
+	$(RM) -r $(BUILD)
 	$(RM) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/*.$(CND_DLIB_EXT)

@@ -25,7 +25,7 @@
 
 //#include "WrapCRP.h"
 
-class __declspec(dllexport) RounderCtrl
+class /*__declspec(dllexport)*/ RounderCtrl
 //class RounderCtrl
 {
 private:
