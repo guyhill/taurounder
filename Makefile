@@ -17,7 +17,7 @@ ifeq ($(32BIT), false) # 64 bit assumed
     BITS         = -m64 -D_LP64
     ARCH         = x86_64
     CND_PLATFORM = MinGW-Windows64
-    JAVADIR      = /usr/lib/jvm/java-21-openjdk-amd64
+    JAVADIR      = /usr/lib/jvm/java-8-openjdk
     GNUDIR       = C:/Progra~1/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin
 else                   # 32 bit assumed
     BITS         = -m32
@@ -69,7 +69,7 @@ all:
 	$(CXX) -c $(CXXFLAGS) -Wno-unused-function $(JAVAINC) -o $(OBJECTDIR)/src/RounderCtrl_wrap.o src/RounderCtrl_wrap.cpp
 	$(CXX) -o $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/libtaurounder.$(CND_DLIB_EXT) $(OBJECTFILES) $(CRPLIBS) -shared
 	
-	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/libtaurounder.$(CND_DLIB_EXT) ../tauargus/$(LIBNAME).dll
+	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/libtaurounder.$(CND_DLIB_EXT) ../tauargus
 	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/*.java ../tauargus/src/tauargus/extern/taurounder
 
 clean:
