@@ -33,7 +33,7 @@ CXX              = g++
 WINDRES          = x86_64-w64-mingw32-windres
 SWIG             = swig
 
-LIBNAME          = TauRounder
+LIBNAME          = libTauRounder
 JAVAPACKAGE      = tauargus.extern.taurounder
 
 # Macros
@@ -67,9 +67,9 @@ all:
 	$(SWIG) $(SFLAGS) -o ./src/RounderCtrl_wrap.cpp RounderCtrl.swg
 	$(CXX) -c $(CXXFLAGS) $(JAVAINC) -o $(OBJECTDIR)/src/RounderCtrl.o src/RounderCtrl.cpp
 	$(CXX) -c $(CXXFLAGS) -Wno-unused-function $(JAVAINC) -o $(OBJECTDIR)/src/RounderCtrl_wrap.o src/RounderCtrl_wrap.cpp
-	$(CXX) -o $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/libtaurounder.$(CND_DLIB_EXT) $(OBJECTFILES) $(CRPLIBS) -shared
+	$(CXX) -o $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/$(LIBNAME).$(CND_DLIB_EXT) $(OBJECTFILES) $(CRPLIBS) -shared
 	
-	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/libtaurounder.$(CND_DLIB_EXT) ../tauargus
+	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/$(LIBNAME).$(CND_DLIB_EXT) ../tauargus
 	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/*.java ../tauargus/src/tauargus/extern/taurounder
 
 clean:
