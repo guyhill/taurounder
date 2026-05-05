@@ -23,6 +23,8 @@
 #include <iostream>
 #include <time.h>
 
+#define __declspec(x)
+
 //#include "WrapCRP.h"
 
 class __declspec(dllexport) RounderCtrl
