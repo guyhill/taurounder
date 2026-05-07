@@ -67,7 +67,7 @@ all:
 	$(SWIG) $(SFLAGS) -o ./src/RounderCtrl_wrap.cpp RounderCtrl.swg
 	$(CXX) -c $(CXXFLAGS) $(JAVAINC) -o $(OBJECTDIR)/src/RounderCtrl.o src/RounderCtrl.cpp
 	$(CXX) -c $(CXXFLAGS) -Wno-unused-function $(JAVAINC) -o $(OBJECTDIR)/src/RounderCtrl_wrap.o src/RounderCtrl_wrap.cpp
-	$(CXX) -o $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/$(LIBNAME).$(CND_DLIB_EXT) $(OBJECTFILES) $(CRPLIBS) -shared
+	$(CXX) -o $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/$(LIBNAME).$(CND_DLIB_EXT) $(OBJECTFILES) $(CRPLIBS) -shared -Bsymbolic
 	
 	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/$(LIBNAME).$(CND_DLIB_EXT) ../tauargus
 	$(CP) $(CND_DISTDIR)/$(CND_CONF)/$(CND_PLATFORM)/*.java ../tauargus/src/tauargus/extern/taurounder
